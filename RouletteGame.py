@@ -1,4 +1,7 @@
 import random
+print("Welcome to Zippy Roulette.")
+playerName = input(str("Please enter your name: "))
+print("Welcome to the game", playerName)
 
 
 def get_bet():
@@ -28,14 +31,22 @@ def get_bet():
         print("Invalid bet type")
         return "invalid"
 
-    bet_amt = input(
-        "Enter bet amount for your chosen bet.\n"
-        "Inside bets $100 < $5, Outside bets $1000 < $5: $"
-    )
-
+    bet_amt = bet_amnt()
+    
     return {"type": bet_typ, "choice": bet_choice, "amount": bet_amt}
 
-
+def bet_amnt():
+    bet_amount = float(input(
+        "Enter bet amount for your chosen bet.\n"
+        "The maximum bet amount is $5 and minimum bet amount is $100: $"
+    ))
+    while (bet_amount < 5) or (bet_amount > 100):
+        print("Error: The bet amount is invalid.")
+        bet_amount = float(input(
+            "Enter bet amount for your chosen bet.\n"
+            "The maximum bet amount is $5 and minimum bet amount is $100: $"
+    ))
+    return(bet_amount)
 def get_color(num):
     red_num = [
         "1",
@@ -77,8 +88,8 @@ def roll():
 
 
 def earning_bet(bet, roll):
-    print("MILES earning_bet", bet, roll)
-    print("Miles: type of bet amount:", type(bet["amount"]))
+    print(playerName, "earning_bet", bet, roll)
+    print(playerName,": type of bet amount:", type(bet["amount"]))
     if bet["type"] == 1:
         color = get_color(roll)
         if bet["choice"] == color:
@@ -124,3 +135,4 @@ for b in bets:
 
 
 print(f"Your total earnings are: ${earnings}")
+
